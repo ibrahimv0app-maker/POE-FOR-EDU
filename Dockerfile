@@ -1,22 +1,49 @@
-FROM python:3.11-slim
+# Multi-stage build for POE-EDU platform
+# Stage 1: Builder
+FROM python:3.11-slim as builder
 
 WORKDIR /app
 
-# system deps
+# Install build dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# copy
-COPY . /app
+# Copy requirements
+COPY requirements.txt .
 
-# install
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Create wheels
+RUN pip install --user --no-cache-dir --wheel --no-deps --wheel-dir /wheels -r requirements.txt
 
-ENV PYTHONUNBUFFERED=1
-ENV PORT=8000
+# Stage 2: Runtime
+FROM python:3.11-slim
 
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy wheels from builder
+COPY --from=builder /wheels /wheels
+
+# Install packages from wheels
+RUN pip install --no-cache /wheels/*
+
+# Copy application code
+COPY . .
+
+# Create non-root user for security
+RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+USER appuser
+
+# Expose port
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+# Run FastAPI application
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]

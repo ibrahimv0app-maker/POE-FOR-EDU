@@ -1,13 +1,25 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
+  poe-edu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: poe-edu-app
     ports:
       - "8000:8000"
-    volumes:
-      - .:/app
-      - ./data.db:/app/data.db
     environment:
       - POE_SESSION_TOKEN=${POE_SESSION_TOKEN}
+      - ENVIRONMENT=production
+    volumes:
+      - ./logs:/app/logs
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  logs:

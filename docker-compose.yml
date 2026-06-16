@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./data.db:/app/data.db
+    environment:
+      - POE_SESSION_TOKEN=${POE_SESSION_TOKEN}
+    restart: unless-stopped

@@ -1,0 +1,30 @@
+# Byte-compiled / env
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+.env
+.env.*
+
+# Python packaging
+*.egg-info/
+build/
+dist/
+
+# Editor / OS files
+.vscode/
+.idea/
+.DS_Store
+
+# Database
+data.db
+
+# Docker
+*.log
+.env.local
+
+# Node
+node_modules/

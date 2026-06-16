@@ -3,28 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>POE-based AI Chat (proxy)</title>
+  <title>POE-EDU — Professional Educational AI Chat</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
   <div class="container">
-    <h1>POE-based AI Chat (proxy)</h1>
+    <header>
+      <img src="/assets/logo.svg" alt="POE-EDU logo" height="48" />
+      <h1>POE-EDU: Educational AI Chat (Proxy)</h1>
+      <p class="tagline">A professional, educational demo that proxies Poe.com models for classroom and research experiments.</p>
+    </header>
 
-    <div class="bot-selector">
-      <label for="bot">Bot (name or id):</label>
-      <input id="bot" type="text" placeholder="e.g. GPT-4 or bot-id" value="GPT-4">
+    <section class="controls">
+      <label>Bot: <input id="bot" value="GPT-4" /></label>
       <button id="refreshBots">Refresh bots</button>
       <select id="botsList"></select>
-    </div>
+    </section>
 
-    <div class="chat-container">
-      <div id="messages" class="chat-box"></div>
+    <main class="chat-area">
+      <aside class="history">
+        <h3>Conversation History</h3>
+        <div id="history"></div>
+      </aside>
 
-      <div class="input-box">
-        <input id="message" placeholder="Type your message..." />
-        <button id="send">Send</button>
-      </div>
-    </div>
+      <section class="chat">
+        <div id="messages" class="chat-box"></div>
+        <div class="input-box">
+          <input id="message" placeholder="Type your message..." />
+          <button id="send">Send (normal)</button>
+          <button id="streamSend">Send (stream)</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <small>For educational use only. See README for terms and responsible use.</small>
+    </footer>
   </div>
 
   <script src="/static/app.js"></script>

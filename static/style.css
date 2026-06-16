@@ -1,0 +1,7 @@
+body { font-family: Arial, sans-serif; margin: 2rem; }
+.container { max-width: 900px; margin: 0 auto; }
+.chat-box { border: 1px solid #ddd; height: 360px; overflow:auto; padding: 10px; background: #fff }
+.user { color: #1a73e8; margin: 8px 0 }
+.bot { color: #222; margin: 8px 0; background:#f6f6f6; padding:8px; border-radius:4px }
+.input-box { display:flex; gap:8px; margin-top: 10px }
+.input-box input { flex:1; padding:8px }

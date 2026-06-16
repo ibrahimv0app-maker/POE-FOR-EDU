@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>POE-based AI Chat (proxy)</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>POE-based AI Chat (proxy)</h1>
+
+    <div class="bot-selector">
+      <label for="bot">Bot (name or id):</label>
+      <input id="bot" type="text" placeholder="e.g. GPT-4 or bot-id" value="GPT-4">
+      <button id="refreshBots">Refresh bots</button>
+      <select id="botsList"></select>
+    </div>
+
+    <div class="chat-container">
+      <div id="messages" class="chat-box"></div>
+
+      <div class="input-box">
+        <input id="message" placeholder="Type your message..." />
+        <button id="send">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
